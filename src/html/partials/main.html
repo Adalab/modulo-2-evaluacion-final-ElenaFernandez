@@ -1,14 +1,22 @@
 <main class="container">
-    <h1 class="container_title">Busca tu Anime favorito</h1>
-    <input type="text" class="js-input-text" placeholder="Busca tu anime...">
-    <input type="submit" value="Buscar" class="js-btn-search">
-    <input type="submit" value="Reset" class="js-btn-reset">
-    <div class="container_box">
-        <h2>favoritos</h2>
-        <ul class="js-favourites"></ul>
-        <h2>resultados</h2>
-        <ul class="js-list"></ul>
-        
-    </div>
+    <h1 class="container__title">Busca tu Anime favorito</h1>
+    <form class="search-form">
+        <input type="text" class="js-input-text" placeholder="Busca tu anime...">
+        <input type="submit" value="Buscar" class="js-btn-search">
+        <input type="submit" value="Reset" class="js-btn-reset">
+    </form>
+    <section class="results-box">
+        <div class="fav-box">
+            <h2>Favoritos</h2>
+            <ul class="js-favourites"></ul>
+        </div>
+        <div class="result-box">
+            <h2>Resultados</h2>
+            <ul class="js-list"></ul>
+        </div>
+    </section>
+
+
+
 
 </main>

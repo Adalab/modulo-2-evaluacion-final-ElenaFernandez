@@ -1,0 +1,17 @@
+body {
+  background-color: $background-color-main;
+}
+.container {
+  font-family: $font-family;
+  font-size: 20px;
+  color: $color-text;
+
+  &__title {
+    display: flex;
+    justify-content: center;
+  }
+}
+.box{
+    display: flex;
+    justify-content: space-around;
+}
