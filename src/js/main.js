@@ -13,6 +13,7 @@ let seriesList = [];
 let favouritesAnime = [];
 
 inputText.value = '';
+
 //OBTENER INFORMACION DEL API Y GUARDARLA EN UN ARRAY
 function handleSearchSerie(event) {
   event.preventDefault();
@@ -40,10 +41,10 @@ function printAnimeList(seriesList) {
     htmlCode.addEventListener('click', addToFav);
   }
 }
+
 //AÑADIR ELEMENTOS AL ARRAY FAVOURITESANIME
 function addToFav(event) {
   const clickedId = event.target.dataset.id;
-
   for (const fav of seriesList.results) {
     if (fav.mal_id === parseInt(clickedId)) {
       favouritesAnime.push({
@@ -55,6 +56,7 @@ function addToFav(event) {
     }
   }
 }
+
 // FUNCION AÑADIR UN FAVORITO A LA LISTA DE FAVORITOS
 function printToFav(anime) {
   let htmlCode = document.createElement('li');
@@ -65,6 +67,7 @@ function printToFav(anime) {
   }"/>`;
   htmlCode.innerHTML += `${anime.title}`;
 }
+
 //PINTA TODOS LOS ANIMES EN FAVORITOS
 function printFavAnimes(favouritesAnime) {
   for (const favAnime of favouritesAnime) {
@@ -72,4 +75,11 @@ function printFavAnimes(favouritesAnime) {
   }
 }
 
+//BOTON RESET
+function handleResetBtn(event) {
+  event.preventDefault();
+  animeList.innerHTML = '';
+}
+
 btnSearch.addEventListener('click', handleSearchSerie);
+btnReset.addEventListener('click', handleResetBtn);
