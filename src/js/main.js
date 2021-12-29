@@ -34,7 +34,7 @@ function printAnimeList(seriesList) {
     let htmlCode = document.createElement('li');
     htmlCode.classList.add('anime');
     animeList.appendChild(htmlCode);
-    htmlCode.innerHTML += `<img data-id="${eachSerie.mal_id}" src="${
+    htmlCode.innerHTML += `<img data-id="${eachSerie.mal_id}"  class="img" src="${
       eachSerie.image_url ? eachSerie.image_url : DEFAULT_IMAGE
     }"  />`;
     htmlCode.innerHTML += `${eachSerie.title}`;
@@ -64,7 +64,7 @@ function printToFav(anime) {
   let htmlCode = document.createElement('li');
   htmlCode.classList.add('favs-anime');
   listFavourites.appendChild(htmlCode);
-  htmlCode.innerHTML += `<img data-id="${anime.mal_id}" src="${
+  htmlCode.innerHTML += `<img data-id="${anime.mal_id}" class="img" src="${
     anime.image_url ? anime.image_url : DEFAULT_IMAGE
   }"/>`;
   htmlCode.innerHTML += `${anime.title}`;
