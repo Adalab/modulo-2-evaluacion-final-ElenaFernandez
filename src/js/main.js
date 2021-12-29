@@ -60,7 +60,7 @@ function addToFav(event) {
 // FUNCION AÑADIR UN FAVORITO A LA LISTA DE FAVORITOS
 function printToFav(anime) {
   let htmlCode = document.createElement('li');
-  htmlCode.classList.add('anime');
+  htmlCode.classList.add('favs-anime');
   listFavourites.appendChild(htmlCode);
   htmlCode.innerHTML += `<img data-id="${anime.mal_id}" src="${
     anime.image_url ? anime.image_url : DEFAULT_IMAGE
