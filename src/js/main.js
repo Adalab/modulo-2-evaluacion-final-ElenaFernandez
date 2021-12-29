@@ -16,6 +16,7 @@ inputText.value = '';
 //OBTENER INFORMACION DEL API Y GUARDARLA EN UN ARRAY
 function handleSearchSerie(event) {
   event.preventDefault();
+  animeList.innerHTML = '';
   fetch(`https://api.jikan.moe/v3/search/anime?q=${inputText.value}`)
     .then((response) => response.json())
     .then((data) => {
@@ -46,11 +47,28 @@ function addToFav(event) {
   for (const fav of seriesList.results) {
     if (fav.mal_id === parseInt(clickedId)) {
       favouritesAnime.push({
-        id: `${fav.mal_id}`,
-        image: `${fav.image_url}`,
+        mal_id: `${fav.mal_id}`,
+        image_url: `${fav.image_url}`,
         title: `${fav.title}`,
       });
+      printToFav(fav);
     }
+  }
+}
+// FUNCION AÑADIR UN FAVORITO A LA LISTA DE FAVORITOS
+function printToFav(anime) {
+  let htmlCode = document.createElement('li');
+  htmlCode.classList.add('anime');
+  listFavourites.appendChild(htmlCode);
+  htmlCode.innerHTML += `<img data-id="${anime.mal_id}" src="${
+    anime.image_url ? anime.image_url : DEFAULT_IMAGE
+  }"/>`;
+  htmlCode.innerHTML += `${anime.title}`;
+}
+//PINTA TODOS LOS ANIMES EN FAVORITOS
+function printFavAnimes(favouritesAnime) {
+  for (const favAnime of favouritesAnime) {
+    printToFav(favAnime);
   }
 }
 
