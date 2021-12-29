@@ -19,12 +19,12 @@ function handleSearchSerie(event) {
     .then((response) => response.json())
     .then((data) => {
       seriesList = data;
-      console.log(seriesList);
       printAnimeList(seriesList.results);
+      console.log(seriesList);
+     
     });
   console.log('>> Ready :)');
 }
-
 function printAnimeList(seriesList) {
   //debugger;
   for (const eachSerie of seriesList) {
@@ -34,5 +34,7 @@ function printAnimeList(seriesList) {
     htmlCode.innerHTML += `${eachSerie.title}`;
   }
 }
+
+
 
 btnSearch.addEventListener('click', handleSearchSerie);
