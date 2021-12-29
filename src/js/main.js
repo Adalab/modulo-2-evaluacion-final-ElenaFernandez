@@ -52,6 +52,8 @@ function addToFav(event) {
         image_url: `${fav.image_url}`,
         title: `${fav.title}`,
       });
+      //convertir a json favouritesanimes para poder almacenaro en localStorage
+      localStorage.setItem('favourite_animes', JSON.stringify(favouritesAnime));
       printToFav(fav);
     }
   }
@@ -81,5 +83,15 @@ function handleResetBtn(event) {
   animeList.innerHTML = '';
 }
 
+//FUNCION ALMACENAMIENTO LOCAL
+function loadFavAnimes() {
+  if (localStorage.getItem('favourite_animes')) {
+    favouritesAnime = JSON.parse(localStorage.getItem('favourite_animes'));
+  }
+  printFavAnimes(favouritesAnime);
+}
+
+
+loadFavAnimes();
 btnSearch.addEventListener('click', handleSearchSerie);
 btnReset.addEventListener('click', handleResetBtn);

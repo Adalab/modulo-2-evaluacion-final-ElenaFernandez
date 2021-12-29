@@ -28,9 +28,19 @@ body {
     transition-duration: 0.2s;
 }
 .buttons:hover{
-    background-color: #aed6f1;
+    background-color: #a9cce3;
 }
 .principal-box {
   display: flex;
   justify-content: center;
+  width: 100%;
+  &__fav{
+      width: 25%;
+  }
+  &__result{
+      width: 50%;
+  }
+}
+.anime{
+    list-style: none;
 }
