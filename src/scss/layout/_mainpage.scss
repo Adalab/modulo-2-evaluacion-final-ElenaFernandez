@@ -3,44 +3,73 @@ body {
 }
 .container {
   font-family: $font-family;
-  font-size: 20px;
   color: $color-text;
   display: flex;
-  justify-content: center;
   flex-direction: column;
   align-items: center;
 
   &__title {
     margin-top: 20px;
     margin-bottom: 10px;
+    font-size: 40px;
   }
   &__search-form {
-      margin-bottom: 10px;
+    margin-bottom: 30px;
   }
 }
 .buttons {
-    background-color: $btn-background;
-    color: $color-btn;
-    width: 70px;
-    height: 30px;
-    border-radius: 10%;
-    border: 0;
-    transition-duration: 0.2s;
-}
-.buttons:hover{
+  background-color: $btn-background;
+  color: $color-btn;
+  width: 70px;
+  height: 20px;
+  border-radius: 10%;
+  border: 0;
+  transition-duration: 0.2s;
+  &:hover {
     background-color: #a9cce3;
+  }
 }
+
 .principal-box {
   display: flex;
   justify-content: center;
   width: 100%;
-  &__fav{
-      width: 25%;
+  height: 100%;
+ 
+
+  &__fav {
+    width: 25%;
+    border: solid 2px #d4e6f1;
+    border-radius: 10px;
   }
-  &__result{
-      width: 50%;
+  &__result {
+    width: 50%;
+    border: solid 2px #d4e6f1;
+    border-radius: 10px;
+    margin-left: 50px;
   }
 }
-.anime{
+.subtitle {
+  text-align: center;
+  background-color: #d4e6f1;
+}
+.ul-items {
+  margin-bottom: 20px;
+  margin-left: 20px;
+}
+.anime {
+  list-style: none;
+  color: #154360;
+  border: solid 2px black;
+  border-radius: 10px;
+  padding-top: 10px;
+  padding-left: 10px;
+}
+.favs-anime{
     list-style: none;
+    color: #154360;
+    border: solid 2px black;
+    border-radius: 10px;
+    padding-top: 10px;
+    padding-left: 10px; 
 }
