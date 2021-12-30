@@ -47,24 +47,29 @@ function printAnimeList(seriesList) {
 //AÑADIR ELEMENTOS AL ARRAY FAVOURITESANIME
 function addToFav(event) {
   const clickedId = event.target.dataset.id;
-  //CAMBIAR EL ELEMENTO DE COLOR
-  event.currentTarget.classList.add('select-border');
-  //para que no se repita la serie
-  let favoAnime = favouritesAnime.find(
-    (anime) => anime.mal_id === clickedId
-  );
-  //GUARDAR EN EL ARRAY FAV
-  for (const fav of seriesList.results) {
-    if (fav.mal_id === parseInt(clickedId)) {
-      favouritesAnime.push({
-        mal_id: `${fav.mal_id}`,
-        image_url: `${fav.image_url}`,
-        title: `${fav.title}`,
-      });
 
-      //convertir a json favouritesanimes para poder almacenaro en localStorage
-      localStorage.setItem('favourite_animes', JSON.stringify(favouritesAnime));
-      printToFav(fav);
+  //para que no se repita la serie / si el mal_id es el mismo, no lo pinto de nuevo
+  let favoAnime = favouritesAnime.find((anime) => anime.mal_id === clickedId);
+
+  //GUARDAR EN EL ARRAY FAV// si el mal_id no es el mismo, lo pinto
+  if (!favoAnime) {
+    for (const fav of seriesList.results) {
+      if (fav.mal_id === parseInt(clickedId)) {
+        favouritesAnime.push({
+          mal_id: `${fav.mal_id}`,
+          image_url: `${fav.image_url}`,
+          title: `${fav.title}`,
+        });
+
+        //convertir a json favouritesanimes para poder almacenaro en localStorage
+        localStorage.setItem(
+          'favourite_animes',
+          JSON.stringify(favouritesAnime)
+        );
+        //CAMBIAR EL ELEMENTO DE COLOR
+        event.currentTarget.classList.add('select-border');
+        printToFav(fav);
+      }
     }
   }
 }
