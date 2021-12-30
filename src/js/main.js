@@ -49,6 +49,10 @@ function addToFav(event) {
   const clickedId = event.target.dataset.id;
   //CAMBIAR EL ELEMENTO DE COLOR
   event.currentTarget.classList.add('select-border');
+  //para que no se repita la serie
+  let favoAnime = favouritesAnime.find(
+    (anime) => anime.mal_id === clickedId
+  );
   //GUARDAR EN EL ARRAY FAV
   for (const fav of seriesList.results) {
     if (fav.mal_id === parseInt(clickedId)) {

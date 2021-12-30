@@ -27,6 +27,7 @@ body {
   border-radius: 10%;
   border: 0;
   transition-duration: 0.2s;
+  Cursor : pointer;
   &:hover {
     background-color: $hover;
   }
@@ -61,6 +62,7 @@ body {
   padding-top: 10px;
   padding-left: 10px;
   width: 180px;
+  Cursor : pointer;
 }
 .ul-items {
   &__results {
@@ -80,6 +82,7 @@ body {
   color: $select-color;
   padding-top: 10px;
   padding-left: 10px;
+  Cursor : pointer;
 }
 .img {
   width: 150px;
