@@ -111,6 +111,9 @@ function loadFavAnimes() {
 function handleResetFav(event) {
   event.preventDefault();
   listFavourites.innerHTML = '';
+
+  //VACIAR EL LOCALSTORAGE
+  localStorage.clear();
 }
 
 loadFavAnimes();
