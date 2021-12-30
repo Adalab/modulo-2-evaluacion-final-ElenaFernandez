@@ -90,6 +90,7 @@ body {
 }
 
 .select-border {
-  border: solid 2px $select-border;
+  border: solid 4px $select-border;
   color: $select-color;
+  border-radius: 10px;
 }

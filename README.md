@@ -33,6 +33,8 @@ Una vez que nos ha pintado la lista de animes, podemos elegir nuestros favoritos
 - Automatización de procesos con Gulp de NodeJS
 - GitHubPages
 
-Aquí podeis ver la aplicación web ( web de githubPages).
+## Aplicación Web
+
+Aquí podeis ver la aplicación web http://beta.adalab.es/modulo-2-evaluacion-final-ElenaFernandez/.
 
 
