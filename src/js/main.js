@@ -48,7 +48,7 @@ function printAnimeList(seriesList) {
 function addToFav(event) {
   const clickedId = event.target.dataset.id;
   //CAMBIAR EL ELEMENTO DE COLOR
- 
+ event.currentTarget.classList.add('select-border');
   //GUARDAR EN EL ARRAY FAV
   for (const fav of seriesList.results) {
     if (fav.mal_id === parseInt(clickedId)) {
