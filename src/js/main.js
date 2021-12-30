@@ -60,7 +60,6 @@ function addToFav(event) {
           image_url: `${fav.image_url}`,
           title: `${fav.title}`,
         });
-
         //convertir a json favouritesanimes para poder almacenaro en localStorage
         localStorage.setItem(
           'favourite_animes',
@@ -82,7 +81,8 @@ function printToFav(anime) {
   htmlCode.innerHTML += `<img data-id="${anime.mal_id}" class="img__fav" src="${
     anime.image_url ? anime.image_url : DEFAULT_IMAGE
   }" />`;
-  htmlCode.innerHTML += `${anime.title} <i class="fas fa-times-circle"></i>`;
+  htmlCode.innerHTML += `${anime.title} <input type="submit" value="x" class= "btnx js-btn-x">`;
+  console.log('input');
 }
 
 //PINTA TODOS LOS ANIMES EN FAVORITOS
