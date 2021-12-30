@@ -97,3 +97,17 @@ body {
   color: $select-color;
   border-radius: 10px;
 }
+.btn-fav{
+  background-color: $btn-background;
+  color: $color-btn;
+  width: 70px;
+  height: 20px;
+  border-radius: 10%;
+  border: 0;
+  transition-duration: 0.2s;
+  
+  Cursor : pointer;
+  &:hover {
+    background-color: $hover;
+  }
+}

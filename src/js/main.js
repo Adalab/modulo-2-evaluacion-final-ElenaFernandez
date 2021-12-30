@@ -6,7 +6,7 @@ const btnSearch = document.querySelector('.js-btn-search');
 const btnReset = document.querySelector('.js-btn-reset');
 const animeList = document.querySelector('.js-list');
 const listFavourites = document.querySelector('.js-favourites');
-
+const btnResetFav = document.querySelector('.js-reset-fav');
 const DEFAULT_IMAGE =
   'https://via.placeholder.com/210x295/ffffff/666666/?text=TV';
 let seriesList = [];
@@ -107,6 +107,13 @@ function loadFavAnimes() {
   printFavAnimes(favouritesAnime);
 }
 
+//FUNCION RESET FAVORITOS
+function handleResetFav(event) {
+  event.preventDefault();
+  listFavourites.innerHTML = '';
+}
+
 loadFavAnimes();
 btnSearch.addEventListener('click', handleSearchSerie);
 btnReset.addEventListener('click', handleResetBtn);
+btnResetFav.addEventListener('click', handleResetFav);
