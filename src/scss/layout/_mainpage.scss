@@ -58,8 +58,6 @@ body {
 .anime {
   list-style: none;
   color: #154360;
-  border: solid 2px black;
-  border-radius: 10px;
   padding-top: 10px;
   padding-left: 10px;
   width: 180px;
@@ -75,7 +73,8 @@ body {
   
   &__fav{
     display: grid;
-    grid-template-columns: 1fr 1fr;;
+    grid-template-rows: 1fr 1fr;
+    text-align: center;
   }
 }
 .favs-anime {
@@ -89,4 +88,15 @@ body {
 }
 .img {
   width: 150px;
+
+  &__fav{
+    width: 70px;
+  }
+}
+
+
+
+.select-border{
+  border: solid 2px $select-border;
+  color: $select-color;
 }

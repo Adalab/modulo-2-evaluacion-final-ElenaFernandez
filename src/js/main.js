@@ -34,7 +34,9 @@ function printAnimeList(seriesList) {
     let htmlCode = document.createElement('li');
     htmlCode.classList.add('anime');
     animeList.appendChild(htmlCode);
-    htmlCode.innerHTML += `<img data-id="${eachSerie.mal_id}"  class="img" src="${
+    htmlCode.innerHTML += `<img data-id="${
+      eachSerie.mal_id
+    }"  class="img" src="${
       eachSerie.image_url ? eachSerie.image_url : DEFAULT_IMAGE
     }"  />`;
     htmlCode.innerHTML += `${eachSerie.title}`;
@@ -45,6 +47,9 @@ function printAnimeList(seriesList) {
 //AÑADIR ELEMENTOS AL ARRAY FAVOURITESANIME
 function addToFav(event) {
   const clickedId = event.target.dataset.id;
+  //CAMBIAR EL ELEMENTO DE COLOR
+ 
+  //GUARDAR EN EL ARRAY FAV
   for (const fav of seriesList.results) {
     if (fav.mal_id === parseInt(clickedId)) {
       favouritesAnime.push({
@@ -52,6 +57,7 @@ function addToFav(event) {
         image_url: `${fav.image_url}`,
         title: `${fav.title}`,
       });
+
       //convertir a json favouritesanimes para poder almacenaro en localStorage
       localStorage.setItem('favourite_animes', JSON.stringify(favouritesAnime));
       printToFav(fav);
@@ -64,10 +70,10 @@ function printToFav(anime) {
   let htmlCode = document.createElement('li');
   htmlCode.classList.add('favs-anime');
   listFavourites.appendChild(htmlCode);
-  htmlCode.innerHTML += `<img data-id="${anime.mal_id}" class="img" src="${
+  htmlCode.innerHTML += `<img data-id="${anime.mal_id}" class="img__fav" src="${
     anime.image_url ? anime.image_url : DEFAULT_IMAGE
-  }"/>`;
-  htmlCode.innerHTML += `${anime.title}`;
+  }" />`;
+  htmlCode.innerHTML += `${anime.title} <i class="fas fa-times-circle"></i>`;
 }
 
 //PINTA TODOS LOS ANIMES EN FAVORITOS
@@ -81,6 +87,7 @@ function printFavAnimes(favouritesAnime) {
 function handleResetBtn(event) {
   event.preventDefault();
   animeList.innerHTML = '';
+  inputText.value = '';
 }
 
 //FUNCION ALMACENAMIENTO LOCAL
@@ -90,7 +97,6 @@ function loadFavAnimes() {
   }
   printFavAnimes(favouritesAnime);
 }
-
 
 loadFavAnimes();
 btnSearch.addEventListener('click', handleSearchSerie);
