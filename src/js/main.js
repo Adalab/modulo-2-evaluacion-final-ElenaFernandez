@@ -81,8 +81,13 @@ function printToFav(anime) {
   htmlCode.innerHTML += `<img data-id="${anime.mal_id}" class="img__fav" src="${
     anime.image_url ? anime.image_url : DEFAULT_IMAGE
   }" />`;
-  htmlCode.innerHTML += `${anime.title} <input type="submit" value="x" class= "btnx js-btn-x">`;
-  console.log('input');
+  htmlCode.innerHTML += `${anime.title}`;
+  let input = document.createElement('input');
+  htmlCode.appendChild(input);
+  input.setAttribute('type', 'submit');
+  input.setAttribute('value', 'x');
+  input.classList.add('btnx');
+  input.setAttribute('data-title', `${anime.title}`);
 }
 
 //PINTA TODOS LOS ANIMES EN FAVORITOS
@@ -111,10 +116,12 @@ function loadFavAnimes() {
 function handleResetFav(event) {
   event.preventDefault();
   listFavourites.innerHTML = '';
-
+  favouritesAnime = [];
   //VACIAR EL LOCALSTORAGE
   localStorage.clear();
 }
+
+
 
 loadFavAnimes();
 btnSearch.addEventListener('click', handleSearchSerie);
