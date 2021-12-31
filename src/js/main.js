@@ -88,6 +88,7 @@ function printToFav(anime) {
   input.setAttribute('value', 'x');
   input.classList.add('btnx');
   input.setAttribute('data-title', `${anime.title}`);
+  input.addEventListener('click', deleteFavAnime);
 }
 
 //PINTA TODOS LOS ANIMES EN FAVORITOS
@@ -121,7 +122,23 @@ function handleResetFav(event) {
   localStorage.clear();
 }
 
+//FUNCIÓN BORRAR FAVORITOS
+function deleteFavAnime(event) {
+  event.preventDefault();
+  const clickedTitle = event.target.dataset.title;
 
+  //te devuelve la posicion del anime en el array de favoritos segun su titulo.
+  let index = favouritesAnime.findIndex(
+    (element) => element.title === clickedTitle
+  );
+  //desde el indice, borra 1
+  favouritesAnime.splice(index,1);
+ 
+  //sobreescribiendo el  localStorage
+  localStorage.setItem('favourite_animes', JSON.stringify(favouritesAnime));
+  //localStorage.removeItem('favourite_animes', 'title');
+  printFavAnimes(favouritesAnime);
+}
 
 loadFavAnimes();
 btnSearch.addEventListener('click', handleSearchSerie);
