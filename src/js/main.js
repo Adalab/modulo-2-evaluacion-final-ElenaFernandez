@@ -12,8 +12,6 @@ const DEFAULT_IMAGE =
 let seriesList = [];
 let favouritesAnime = [];
 
-inputText.value = '';
-
 //OBTENER INFORMACION DEL API Y GUARDARLA EN UN ARRAY
 function handleSearchSerie(event) {
   event.preventDefault();
@@ -21,10 +19,8 @@ function handleSearchSerie(event) {
   fetch(`https://api.jikan.moe/v3/search/anime?q=${inputText.value}`)
     .then((response) => response.json())
     .then((data) => {
-      seriesList = data;
-      printAnimeList(seriesList.results);
-
-      console.log(seriesList);
+      seriesList = data.results;
+      printAnimeList(seriesList);
     });
 }
 
@@ -41,6 +37,14 @@ function printAnimeList(seriesList) {
     }"  />`;
     htmlCode.innerHTML += `${eachSerie.title}`;
     htmlCode.addEventListener('click', addToFav);
+    //debugger;
+    //busca en el array de favoritos la serie que voy a cambiar el color
+    let animeFavourite = favouritesAnime.find(
+      (element) => parseInt(element.mal_id) === eachSerie.mal_id
+    );
+    if (animeFavourite) {
+      htmlCode.classList.add('select-border');
+    }
   }
 }
 
@@ -48,12 +52,12 @@ function printAnimeList(seriesList) {
 function addToFav(event) {
   const clickedId = event.target.dataset.id;
 
-  //para que no se repita la serie / si el mal_id es el mismo, no lo pinto de nuevo
+  //para que no se repita la serie, si ya se encuentra en favoritos, no la pinto
   let favoAnime = favouritesAnime.find((anime) => anime.mal_id === clickedId);
 
   //GUARDAR EN EL ARRAY FAV// si el mal_id no es el mismo, lo pinto
-  if (!favoAnime) {
-    for (const fav of seriesList.results) {
+  if (favoAnime === undefined) {
+    for (const fav of seriesList) {
       if (fav.mal_id === parseInt(clickedId)) {
         favouritesAnime.push({
           mal_id: `${fav.mal_id}`,
@@ -70,15 +74,18 @@ function addToFav(event) {
         printToFav(fav);
       }
     }
+  } else {
+    deleteFav(clickedId);
   }
 }
 
 // FUNCION AÑADIR UN FAVORITO A LA LISTA DE FAVORITOS
 function printToFav(anime) {
   let htmlCode = document.createElement('li');
+  htmlCode.setAttribute('data-id', `${anime.mal_id}`);
   htmlCode.classList.add('favs-anime');
   listFavourites.appendChild(htmlCode);
-  htmlCode.innerHTML += `<img data-id="${anime.mal_id}" class="img__fav" src="${
+  htmlCode.innerHTML += `<img class="img__fav" src="${
     anime.image_url ? anime.image_url : DEFAULT_IMAGE
   }" />`;
   htmlCode.innerHTML += `${anime.title}`;
@@ -87,12 +94,15 @@ function printToFav(anime) {
   input.setAttribute('type', 'submit');
   input.setAttribute('value', 'x');
   input.classList.add('btnx');
-  input.setAttribute('data-title', `${anime.title}`);
+  input.setAttribute('data-id', `${anime.mal_id}`);
   input.addEventListener('click', deleteFavAnime);
 }
 
-//PINTA TODOS LOS ANIMES EN FAVORITOS
-function printFavAnimes(favouritesAnime) {
+//FUNCION PINTA LO FAVORITOS QUE SE ENCUENTRAN EN EL LOCALSTORAGE CUANDO RECARGAS LA PAGINA
+function loadFavAnimes() {
+  if (localStorage.getItem('favourite_animes')) {
+    favouritesAnime = JSON.parse(localStorage.getItem('favourite_animes'));
+  }
   for (const favAnime of favouritesAnime) {
     printToFav(favAnime);
   }
@@ -103,14 +113,6 @@ function handleResetBtn(event) {
   event.preventDefault();
   animeList.innerHTML = '';
   inputText.value = '';
-}
-
-//FUNCION ALMACENAMIENTO LOCAL
-function loadFavAnimes() {
-  if (localStorage.getItem('favourite_animes')) {
-    favouritesAnime = JSON.parse(localStorage.getItem('favourite_animes'));
-  }
-  printFavAnimes(favouritesAnime);
 }
 
 //FUNCION RESET FAVORITOS
@@ -125,22 +127,40 @@ function handleResetFav(event) {
 //FUNCIÓN BORRAR FAVORITOS
 function deleteFavAnime(event) {
   event.preventDefault();
-  const clickedTitle = event.target.dataset.title;
+  const clickedId = event.target.dataset.id;
 
-  //te devuelve la posicion del anime en el array de favoritos segun su titulo.
-  let index = favouritesAnime.findIndex(
-    (element) => element.title === clickedTitle
-  );
-  //desde el indice, borra 1
-  favouritesAnime.splice(index,1);
- 
-  //sobreescribiendo el  localStorage
-  localStorage.setItem('favourite_animes', JSON.stringify(favouritesAnime));
-  //localStorage.removeItem('favourite_animes', 'title');
-  printFavAnimes(favouritesAnime);
+  deleteFav(clickedId);
 }
 
+function deleteFav(animeId) {
+  //te devuelve la posicion del anime en el array de favoritos segun su id.
+  let index = favouritesAnime.findIndex(
+    (element) => element.mal_id === animeId
+  );
+  //desde el indice, borra 1
+  favouritesAnime.splice(index, 1);
+
+  //sobreescribiendo el  localStorage
+  localStorage.setItem('favourite_animes', JSON.stringify(favouritesAnime));
+  //localStorage.removeItem('favourite_animes', 'id');
+  //debugger;
+  //borrar el elemento seleccionado de la lista de favoritos
+  let child = document.querySelector(`li[data-id="${animeId}"]`);
+  listFavourites.removeChild(child);
+  //debugger;´
+  //quitar el color cuando se borra de favoritos
+  let anime = seriesList.find((anime) => anime.mal_id === parseInt(animeId));
+  if (anime !== undefined) {
+    let serieInList = document.querySelector(
+      `img[data-id="${animeId}"]`
+    ).parentElement;
+    serieInList.classList.remove('select-border');
+  }
+}
+
+inputText.value = '';
 loadFavAnimes();
+
 btnSearch.addEventListener('click', handleSearchSerie);
 btnReset.addEventListener('click', handleResetBtn);
 btnResetFav.addEventListener('click', handleResetFav);
