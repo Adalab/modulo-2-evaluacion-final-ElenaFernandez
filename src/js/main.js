@@ -97,7 +97,7 @@ function createInput(animeId) {
   return input;
 }
 
-//PRINT FAVOURITES THAT ARE IN THE LOCALSTORAGE WHEM THE PAGE IS RELOAD
+//PRINT FAVOURITES THAT ARE IN THE LOCALSTORAGE WHEN THE PAGE IS RELOAD
 function loadFavAnimes() {
   if (localStorage.getItem('favourite_animes')) {
     favouritesAnime = JSON.parse(localStorage.getItem('favourite_animes'));
@@ -123,7 +123,7 @@ function handleResetBtnFav(event) {
   localStorage.clear();
 }
 
-//DELTE FAVOURITES
+//DELETE FAVOURITES
 function deleteFavAnime(event) {
   event.preventDefault();
   const clickedId = event.target.dataset.id;
@@ -132,22 +132,18 @@ function deleteFavAnime(event) {
 }
 
 function deleteFav(animeId) {
-  //te devuelve la posicion del anime en el array de favoritos segun su id.
+  // RETURN THE POSITION ON THE RARRAY FAVOURITES WITH THE ID
   let index = favouritesAnime.findIndex(
     (element) => element.mal_id === animeId
   );
-  //FROM INDEX. DELETE 1
+  //FROM INDEX, DELETE 1
   favouritesAnime.splice(index, 1);
-
-  //sobreescribiendo el  localStorage
+  //REWRITE LOCALSTORAGE
   localStorage.setItem('favourite_animes', JSON.stringify(favouritesAnime));
-  //localStorage.removeItem('favourite_animes', 'id');
-  
-  //borrar el elemento seleccionado de la lista de favoritos
+  //DELETE FROM FAVOURITES THE ELEMENT CLICKED
   let child = document.querySelector(`li[data-id="${animeId}"]`);
   listFavourites.removeChild(child);
-  //debugger;´
-  //quitar el color cuando se borra de favoritos
+  //DELETE COLOR WHEN ITS NOT IN FAVOURITES
   let anime = seriesList.find((anime) => anime.mal_id === parseInt(animeId));
   if (anime !== undefined) {
     let serieInList = document.querySelector(
@@ -166,6 +162,7 @@ function listenEvents() {
   btnReset.addEventListener('click', handleResetBtn);
   btnResetFav.addEventListener('click', handleResetBtnFav);
 }
+
 inputText.value = '';
 loadFavAnimes();
 listenEvents();
