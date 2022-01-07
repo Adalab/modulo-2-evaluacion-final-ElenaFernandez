@@ -34,6 +34,7 @@ function renderAnimeList(seriesList) {
       eachSerie.image_url ? eachSerie.image_url : DEFAULT_IMAGE
     }"  />`;
     liSerie.innerHTML += `<p>${eachSerie.title}</p>`;
+    liSerie.innerHTML += `<p> ${eachSerie.type}</p>`;
     liSerie.addEventListener('click', addToFav);
     //SEARCH IN THE FAVOURITES ARRAY WHICH  ONE IS GOING TO CHANGE COLOR
     let animeFavourite = favouritesAnime.find(
@@ -122,6 +123,12 @@ function handleResetBtnFav(event) {
   //CLEAR LOCALSTORAGE
   localStorage.clear();
 }
+function showNameFav(event){
+  event.preventDefault();
+  for(const eachName of favouritesAnime){
+    console.log(eachName.title);
+  }
+}
 
 //DELETE FAVOURITES
 function deleteFavAnime(event) {
@@ -152,15 +159,18 @@ function deleteFav(animeId) {
     serieInList.classList.remove('select-border');
   }
 }
+
 //HELPERS
 function listenEvents() {
   const btnSearch = document.querySelector('.js-btn-search');
   const btnReset = document.querySelector('.js-btn-reset');
   const btnResetFav = document.querySelector('.js-reset-fav');
+  const logBtn  = document.querySelector('.js-btn-log ');
 
   btnSearch.addEventListener('click', getDataFromApi);
   btnReset.addEventListener('click', handleResetBtn);
   btnResetFav.addEventListener('click', handleResetBtnFav);
+  logBtn.addEventListener('click', showNameFav);
 }
 
 inputText.value = '';
